@@ -66,6 +66,8 @@ If you have problems with applications not using the whole screen, or failing to
 DISPLAY=":0" leafpad
 ```
 
+Other than that, you can follow the instructions from the Gameshell wiki for launching games in emulators directly, if you have `retroarch` installed on your PocketCHIP: https://github.com/clockworkpi/GameShellDocs/wiki/New-ICONS-that-start-games-in-one-click-from-the-MENU
+
 ## Known problems and missing features
 
 - Wifi GUI is a bit buggy so I've disabled it in the Settings menu.
