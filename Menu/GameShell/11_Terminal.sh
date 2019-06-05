@@ -1,0 +1,1 @@
+DISPLAY=":0" vala-terminal -fs 8 -v --fullscreen
