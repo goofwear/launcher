@@ -1,7 +1,3 @@
-retroarch-core-options.cfg
-*.lpl
-*.swp
-.bsv
 *.pyc
 sys.py/.powerlevel
 sys.py/.buttonslayout
@@ -11,4 +7,3 @@ sys.py/.lang
 !**/Jobs/.gitkeep
 !**/Jobs/00_lowpower.sh
 !**/Jobs/00_lowpower.alias
-.done
