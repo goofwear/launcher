@@ -14,7 +14,7 @@ UPDATE_URL="https://raw.githubusercontent.com/clockworkpi/CPI/master/launcher_ve
 
 VERSION="stable 1.24"
 
-SKIN="../skin/default"
+SKIN="../skin/pocket"
 
 ## three timer values in seconds: dim screen, close screen,PowerOff
 ## zero means no action
