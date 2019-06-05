@@ -42,6 +42,30 @@ You can also use `enter` to select things, and `escape` to go back.
 
 The usual `ctrl`+`tab` and `ctrl`+`q` shortcuts from `pocket-home` will work everywhere too.
 
+## Adding new shortcuts
+
+To add a new shortcut, create a `.sh` file in the `~/launcher/Menu/GameShell` directory (you can copy one of the others).
+
+The filename indicates the order, and must start with a number and underscore:
+
+```
+NN_Name Of Shortcut.sh
+```
+
+To set an icon for the shortcut, you need to add an 80x80 png in `~/launcher/skin/pocket/Menu/GameShell` with a filename that matches the app shortcut, but without the number and underscore prefix:
+
+```
+Name Of Shortcut.png
+```
+
+If you don't have an icon, the launcher will use the first letters of the shortcut and the blank icon found at `~/launcher/skin/pocket/sys.py/gameshell/blank.png`
+
+If you have problems with applications not using the whole screen, or failing to start, you can try specifying the display at the start of your command, e.g.:
+
+```
+DISPLAY=":0" leafpad
+```
+
 ## Known problems and missing features
 
 - Wifi GUI is a bit buggy so I've disabled it in the Settings menu.
