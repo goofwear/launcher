@@ -1,85 +1,79 @@
-# GameShell launcher
-This is the launcher for GameShell based on 320x240 resolution and D-Pad layout.
-![Screenshot](https://github.com/clockworkpi/GameShellDocs/blob/master/screenshot.png)
+# GameShell launcher for PocketCHIP
 
-# Create the necessary user and group
-* User name: cpi
-* Password: cpi
-* Group ID: 31415 with group name: cpifav
+This is the Launcher from the Gameshell, ported over to the PocketCHIP.
 
-```
-sudo adduser cpi  
-sudo groupadd cpifav -g 31415  
-sudo adduser cpi cpifav  
-```
+![](https://media.discordapp.net/attachments/422472890441793539/585821529913425923/2019-06-05-132318_480x272_scrot.png)
 
-# Directory structure
-```
-/home/cpi/
-├── apps
-│   ├── emulators
-│   └── launcher <-Here we are
-│       ├── Menu
-│       ├── sys.py
-│       └── truetype
-├── games
-│   ├── FreeDM
-│   ├── MAME
-│   └── nxengine
-└── music
-```
-## Create the necessary directories
-```
-mkdir -p /home/cpi/apps/emulators  
-mkdir -p /home/cpi/games  
-mkdir -p /home/cpi/music  
-```
+### Note
 
-# Dependent packages
-* validators, numpy, requests, python-mpd2, beeprint, python-pycurl, python-alsaaudio, python-pygame, python-gobject, python-xlib, python-wicd
-* wicd (For Wi-Fi)
-* mpd (For music player)
+This is has been tested on my own PocketCHIP to ensure repeatability a couple of times, but you might encounter your own probems if you don't have a working `apt` for example.
 
-## Install dependent packages
-```
-sudo apt-get -y install mpd ncmpcpp git libuser
-sudo apt-get -y install python-wicd  wicd wicd-curses python-pycurl python-alsaaudio python-pygame python-gobject python-xlib   
-
-sudo apt-get -y install python-pip   
-sudo pip install validators numpy requests python-mpd2
-```
-
-# Create “.mpd_cpi.conf” config
-
-vim ~/.mpd_cpi.conf
+## Installation
 
 ```
-music_directory    "/home/cpi/music"
-playlist_directory    "/home/cpi/music/playlists"
-db_file    "/home/cpi/music/tag_cache"
-log_file    "/tmp/mpd.log"
-pid_file    "/tmp/mpd.pid"
-state_file    "/home/cpi/music/mpd_state"
-sticker_file    "/home/cpi/music/sticker.sql"
-user    "cpi"
-bind_to_address    "/tmp/mpd.socket"
-auto_update    "yes"
-auto_update_depth    "3" 
-input {
-    plugin "curl"
-}
-
-audio_output {
-    type    "alsa"
-    name    "My ALSA Device"
-}
-
-audio_output {
-    type    "fifo"
-    name    "my_fifo"
-    path    "/tmp/mpd.fifo"
-    format    "44100:16:2"
-}
-
-filesystem_charset    "UTF-8"
+cd ~
+git clone https://github.com/omgmog/launcher.git
+cd launcher
+chmod +x install.sh
+bash ./install.sh
 ```
+
+## Uninstallation
+
+Uninstallation is quite lazy, it just restores the awesomewm config, and re-installs `pocket-home`.
+
+```
+bash ./install.sh -u
+```
+
+## Button configuration
+
+The button layout is as follows:
+
+- A/OK - `0`
+- B/Back - `=`
+- X - `9`
+- Y - `-`
+- D-pad - d-pad
+
+This should be the most consistent with what you're used to on PocketCHIP, while also providing the additional buttons that the launcher uses.
+
+You can also use `enter` to select things, and `escape` to go back.
+
+The usual `ctrl`+`tab` and `ctrl`+`q` shortcuts from `pocket-home` will work everywhere too.
+
+## Known problems and missing features
+
+- Wifi GUI is a bit buggy so I've disabled it in the Settings menu.
+- Battery display isn't hooked up yet, so I've disabled it for now
+- There are still some references to ClockworkPi/Gameshell here and there...
+- The brightness sometimes sets itself to the lowest value. For now, you can go to settings and turn the brightness back up yourself.
+- Not all new strings are localized yet.
+
+## Help!
+
+Having problems with anything? Check these common problems below, or raise an issue:
+
+#### Shutdown and Restart in the _PowerOFF_ menu don't do anything!
+
+You need to make your user account (`chip`) passwordlessly use `sudo` for `shutdown` and `rebout`.
+
+First, open `visudo` to edit the `sudoers` file
+
+```
+sudo visudo
+``` 
+
+Then add the following lines at the end of the file:
+
+```
+chip ALL = (root) NOPASSWD: /sbin/reboot
+chip ALL = (root) NOPASSWD: /sbin/shutdown
+
+# You can do this for any command, or make your sudo entirely
+# passwordless... I wouldn't recommend that though...
+```
+
+Save and close `visudo` (this should use `nano` by default on the CHIP, so it's `ctrl`+`x` followed by `y` to save/close)
+
+Now you should be able to Shutdown and Restart from the _PowerOFF_ menu.
