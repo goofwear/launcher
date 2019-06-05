@@ -57,7 +57,7 @@ class PowerOffConfirmPage(ConfirmPage):
             
             #cmdpath += "echo 'halt -p' > /tmp/halt_cmd"
             
-            cmdpath += "sudo halt -p"
+            cmdpath += "sudo shutdown -h -t 0"
             pygame.event.post( pygame.event.Event(RUNSYS, message=cmdpath))
             
         if event.key == CurKeys["X"]:

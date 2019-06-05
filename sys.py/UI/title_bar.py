@@ -32,8 +32,8 @@ class TitleBar(Widget):
     _Width     = Width
     _Height    = 25
     _BarHeight  = 24.5
-    _LOffset    = 3
-    _ROffset    = 3
+    _LOffset    = 5
+    _ROffset    = 5
     _Icons      = {}
     _icon_width = 18
     _icon_height = 18
@@ -254,16 +254,16 @@ class TitleBar(Widget):
         self._Icons["bluetooth"] = bluetooth
         self.CheckBluetooth()
         
-        round_corners   =  MultiIconItem()
-        round_corners._IconWidth = 10
-        round_corners._IconHeight = 10
+        # round_corners   =  MultiIconItem()
+        # round_corners._IconWidth = 10
+        # round_corners._IconHeight = 10
         
-        round_corners._MyType = ICON_TYPES["STAT"]
-        round_corners._Parent = self
-        round_corners._ImgSurf = MyIconPool._Icons["roundcorners"]
-        round_corners.Adjust(0,0,10,10,0)
+        # round_corners._MyType = ICON_TYPES["STAT"]
+        # round_corners._Parent = self
+        # round_corners._ImgSurf = MyIconPool._Icons["roundcorners"]
+        # round_corners.Adjust(0,0,10,10,0)
 
-        self._Icons["round_corners"] = round_corners
+        # self._Icons["round_corners"] = round_corners
         
         if is_wifi_connected_now():
             print("wifi is connected")
@@ -278,13 +278,13 @@ class TitleBar(Widget):
     def ClearCanvas(self):
         self._CanvasHWND.fill( self._SkinManager.GiveColor("TitleBg") )
 
-        self._Icons["round_corners"].NewCoord(5,5)
-        self._Icons["round_corners"]._IconIndex = 0
-        self._Icons["round_corners"].Draw()
+        # self._Icons["round_corners"].NewCoord(5,5)
+        # self._Icons["round_corners"]._IconIndex = 0
+        # self._Icons["round_corners"].Draw()
 
-        self._Icons["round_corners"].NewCoord(self._Width-5,5)
-        self._Icons["round_corners"]._IconIndex = 1
-        self._Icons["round_corners"].Draw()
+        # self._Icons["round_corners"].NewCoord(self._Width-5,5)
+        # self._Icons["round_corners"]._IconIndex = 1
+        # self._Icons["round_corners"].Draw()
         
         
         """
@@ -297,19 +297,44 @@ class TitleBar(Widget):
     def Draw(self,title):
         self.ClearCanvas()
         title = MyLangManager.Tr(title)
+
+        # Couldn't see where to change this anywhere, so let's be super explicit
+        if title == "GameShell":
+            title = "PocketCHIP"
         self._Title = title
+        title_text_size = MyLangManager.TrFont("varela16").size(title)
+        self._CanvasHWND.blit(MyLangManager.TrFont("varela16").render(
+            title,
+            True,
+            self._SkinManager.GiveColor("Text")),
+            # x,y,width,height,canWidth,canHeight
+            midRect(
+                title_text_size[0]/2+self._LOffset,
+                title_text_size[1]/2+(self._BarHeight-title_text_size[1])/2,
+                title_text_size[0],
+                title_text_size[1],
+                Width,
+                Height
+            )
+        )
         
         cur_time =  datetime.now().strftime("%H:%M")
         time_text_font = MySkinManager.GiveFont("varela12")
         time_text_size = time_text_font.size(cur_time)
-        title_text_size = MyLangManager.TrFont("varela16").size(title)
-
-        self._CanvasHWND.blit(MyLangManager.TrFont("varela16").render(title,True,self._SkinManager.GiveColor("Text")),midRect(title_text_size[0]/2+self._LOffset,
-                                                                    title_text_size[1]/2+(self._BarHeight-title_text_size[1])/2,
-                                                                    title_text_size[0],title_text_size[1],Width,Height))
-        self._CanvasHWND.blit( time_text_font.render(cur_time,True,self._SkinManager.GiveColor("Text")),midRect(Width-time_text_size[0]/2-self._ROffset,
-                                                                        time_text_size[1]/2+(self._BarHeight-time_text_size[1])/2,
-                                                                        time_text_size[0],time_text_size[1],Width,Height))
+        self._CanvasHWND.blit(time_text_font.render(
+            cur_time,
+            True,
+            self._SkinManager.GiveColor("Text")),
+            # x,y,width,height,canWidth,canHeight
+            midRect(
+                Width-time_text_size[0]/2-self._ROffset,
+                time_text_size[1]/2+(self._BarHeight-time_text_size[1])/2,
+                time_text_size[0],
+                time_text_size[1],
+                Width,
+                Height
+            )
+        )
 
         start_x = Width-time_text_size[0]-self._ROffset-self._icon_width*3 # near by the time_text
         

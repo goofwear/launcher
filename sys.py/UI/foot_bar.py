@@ -43,8 +43,8 @@ class FootBarIcon(MultiIconItem):
                                           (0,self._IconIndex*self._IconHeight,self._IconWidth,self._IconHeight))
 class FootBar(Widget):
     _Width     = Width
-    _Height    = 20
-    _BarHeight = 20.5
+    _Height    = 22
+    _BarHeight = 22.5
     _BorderWidth = 1
     _CanvasHWND = None
     _HWND       = None
@@ -88,16 +88,16 @@ class FootBar(Widget):
 
         self.ReadFootBarIcons(icon_base_path)
 
-        round_corners   =  MultiIconItem()
-        round_corners._IconWidth = 10
-        round_corners._IconHeight = 10
+        # round_corners   =  MultiIconItem()
+        # round_corners._IconWidth = 10
+        # round_corners._IconHeight = 10
 
-        round_corners._MyType = ICON_TYPES["STAT"]
-        round_corners._Parent = self
-        round_corners._ImgSurf = MyIconPool._Icons["roundcorners"]
-        round_corners.Adjust(0,0,10,10,0)
+        # round_corners._MyType = ICON_TYPES["STAT"]
+        # round_corners._Parent = self
+        # round_corners._ImgSurf = MyIconPool._Icons["roundcorners"]
+        # round_corners.Adjust(0,0,10,10,0)
 
-        self._Icons["round_corners"] = round_corners
+        # self._Icons["round_corners"] = round_corners
 
     def ResetNavText(self):
         self._Icons["nav"]._Label.SetText(MyLangManager.Tr("Nav"))
@@ -147,13 +147,13 @@ class FootBar(Widget):
     def ClearCanvas(self):
         self._CanvasHWND.fill( self._SkinManager.GiveColor("White") )
 
-        self._Icons["round_corners"].NewCoord(5,self._Height -5 )
-        self._Icons["round_corners"]._IconIndex = 2
-        self._Icons["round_corners"].Draw()
+        # self._Icons["round_corners"].NewCoord(5,self._Height -5 )
+        # self._Icons["round_corners"]._IconIndex = 2
+        # self._Icons["round_corners"].Draw()
 
-        self._Icons["round_corners"].NewCoord(self._Width-5,self._Height-5)
-        self._Icons["round_corners"]._IconIndex = 3
-        self._Icons["round_corners"].Draw()
+        # self._Icons["round_corners"].NewCoord(self._Width-5,self._Height-5)
+        # self._Icons["round_corners"]._IconIndex = 3
+        # self._Icons["round_corners"].Draw()
 
 
         """

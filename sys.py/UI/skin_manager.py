@@ -93,7 +93,7 @@ class SkinManager(object):
         try:
             self._Config.read(fname)
         except Exception, e:
-            print("read skin config.cfg error %s" % str(e))
+            print("read skin config.ini error %s" % str(e))
             return
         else:
             if "Colors" in self._Config.sections():
@@ -118,9 +118,9 @@ class SkinManager(object):
             return  pygame.Color(255,0,0)
     
     def GiveIcon(self,orig_file_or_dir):
-        #doing a wrapper for items under /home/cpi/apps/Menu/*, to be like Menu/GameShell/*
-        if orig_file_or_dir.startswith("/home/cpi/apps/Menu"):
-            orig_file_or_dir = orig_file_or_dir.replace("/home/cpi/apps/Menu/","../Menu/GameShell/")
+        #doing a wrapper for items under /home/chip/apps/Menu/*, to be like Menu/GameShell/*
+        if orig_file_or_dir.startswith("/home/chip/apps/Menu"):
+            orig_file_or_dir = orig_file_or_dir.replace("/home/chip/apps/Menu/","../Menu/GameShell/")
     
         if orig_file_or_dir.startswith(".."):
             ret  = orig_file_or_dir.replace("..",config.SKIN)

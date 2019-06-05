@@ -106,14 +106,14 @@ class Page(Widget):
     _FootMsg = ["Nav", "", "", "", "Enter"]  # Default Page Foot info
     _Wallpaper = None
     _SelectedIconTopOffset = 20
-    _EasingDur = 30
+    _EasingDur = 15
     _Padding = pygame.Rect(0, 0, 0, 0)  # x,y,w,h
     _Margin = pygame.Rect(0, 0, 0, 0)
     _ScrollStep = 1
 
     def __init__(self):
         self._Icons = []
-        path = '/home/cpi/launcher/skin/default/Menu/GameShell/Wallpaper/'
+        path = '/home/chip/launcher/skin/default/Menu/GameShell/Wallpaper/'
 
         if os.path.exists(path):
             image = os.listdir(path)[0]

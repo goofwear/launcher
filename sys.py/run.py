@@ -517,7 +517,7 @@ def socket_thread(main_screen):
                     if main_screen._MyPageStack.Length() == 0: ## on Top Level 
                         break
                 
-                if main_screen._CurrentPage._Name == "GameShell":
+                if main_screen._CurrentPage._Name == "PocketCHIP":
                     for i in main_screen._CurrentPage._Icons:
                         if i._MyType == ICON_TYPES["FUNC"]:
                             if i._Label.GetText() == "PowerOFF":
@@ -541,7 +541,7 @@ def big_loop():
     main_screen.Init()
     
     main_screen.ReadTheDirIntoPages("../Menu",0,None)
-    main_screen.ReadTheDirIntoPages("/home/cpi/apps/Menu",1,main_screen._Pages[ len(main_screen._Pages) -1])
+    main_screen.ReadTheDirIntoPages("/home/chip/apps/Menu",1,main_screen._Pages[ len(main_screen._Pages) -1])
     main_screen.ReunionPagesIcons()
     
     main_screen.FartherPages()
