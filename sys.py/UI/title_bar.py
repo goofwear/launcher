@@ -21,6 +21,7 @@ from util_funcs  import midRect,SwapAndShow
 from skin_manager import MySkinManager
 from widget      import Widget
 from config import Battery
+from config import AudioControl
 
 from libs.roundrects import aa_round_rect
 
@@ -53,7 +54,7 @@ class TitleBar(Widget):
 
     def GObjectRoundRobin(self):
         if self._InLowBackLight < 0:
-            self.CheckBatteryStat()
+            #self.CheckBatteryStat()
             self.SyncSoundVolume()
             self.CheckBluetooth()
             self.UpdateWifiStrength()
@@ -63,7 +64,7 @@ class TitleBar(Widget):
         elif self._InLowBackLight >= 0:
             self._InLowBackLight+=1
             if self._InLowBackLight > 10:
-                self.CheckBatteryStat()
+                #self.CheckBatteryStat()
                 self.SyncSoundVolume()
                 self.CheckBluetooth()
                 self.UpdateWifiStrength()
@@ -98,7 +99,7 @@ class TitleBar(Widget):
 
     def SyncSoundVolume(self):
         try:
-	        m = alsaaudio.Mixer()
+	        m = alsaaudio.Mixer(AudioControl)
 	        vol = m.getvolume()[0]	
         except Exception,e:
             print(str(e))
@@ -145,7 +146,7 @@ class TitleBar(Widget):
 
                 """
                 power_current = int(bat_uevent["POWER_SUPPLY_CURRENT_NOW"])
-                if power_current < 270000:
+#                if power_current < 270000:
                 self._Icons["battery"] = self._Icons["battery_unknown"]
                 return False
                 """
@@ -231,7 +232,7 @@ class TitleBar(Widget):
 
         self._Icons["battery_unknown"] = battery_unknown
                         
-        self.CheckBatteryStat()
+        #self.CheckBatteryStat()
 
         sound_volume   =  MultiIconItem()
         sound_volume._MyType = ICON_TYPES["STAT"]
@@ -318,7 +319,7 @@ class TitleBar(Widget):
         
         #self._Icons["wifi"].NewCoord(start_x+self._icon_width+5,    self._icon_height/2+(self._BarHeight-self._icon_height)/2)
         
-        self._Icons["battery"].NewCoord(start_x+self._icon_width+self._icon_width+8,self._icon_height/2+(self._BarHeight-self._icon_height)/2)
+        #self._Icons["battery"].NewCoord(start_x+self._icon_width+self._icon_width+8,self._icon_height/2+(self._BarHeight-self._icon_height)/2)
 
         
         if is_wifi_connected_now():
@@ -326,10 +327,10 @@ class TitleBar(Widget):
             if ge > 0:
                 self._Icons["wifistatus"]._IconIndex = ge
                 self._Icons["wifistatus"].NewCoord(start_x+self._icon_width+5,self._icon_height/2+(self._BarHeight-self._icon_height)/2)
-                self._Icons["wifistatus"].Draw()
+                # self._Icons["wifistatus"].Draw()
             else:
                 self._Icons["wifistatus"]._IconIndex = 0
-                self._Icons["wifistatus"].Draw()
+                # self._Icons["wifistatus"].Draw()
                 print("wifi strength error")
         else:
             if self._InAirPlaneMode == False:
@@ -338,13 +339,13 @@ class TitleBar(Widget):
                 self._Icons["wifistatus"]._IconIndex = 5 ## airplane mode icon
             
             self._Icons["wifistatus"].NewCoord(start_x+self._icon_width+5,self._icon_height/2+(self._BarHeight-self._icon_height)/2)
-            self._Icons["wifistatus"].Draw()
+            # self._Icons["wifistatus"].Draw()
         
+        # Draw the title bar icons
+        self._Icons["wifistatus"].Draw()
         self._Icons["sound"].Draw()
-        
-        self._Icons["battery"].Draw()
-        
-        self._Icons["bluetooth"].Draw()
+        # self._Icons["battery"].Draw()
+        # self._Icons["bluetooth"].Draw()
         
         pygame.draw.line(self._CanvasHWND,self._SkinManager.GiveColor("Line"),(0,self._BarHeight),(self._Width,self._BarHeight),self._BorderWidth)
 

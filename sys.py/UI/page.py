@@ -118,7 +118,7 @@ class Page(Widget):
         if os.path.exists(path):
             image = os.listdir(path)[0]
             if image:
-                self._Wallpaper = pygame.transform.scale(pygame.image.load(path+image).convert(), (320,240))  
+                self._Wallpaper = pygame.transform.scale(pygame.image.load(path+image).convert(), (480,272))  
         
 
 

@@ -1,18 +1,16 @@
 # -*- coding: utf-8 -*- 
 
-CurKeySet = "GameShell" ## >>>    PC or GameShell   <<<
+CurKeySet = "PC" ## >>>    PC or GameShell   <<<
 
 DontLeave = False
 
-BackLight = "/proc/driver/backlight"
-Battery   = "/sys/class/power_supply/axp20x-battery/uevent"
-
-
-MPD_socket = "/tmp/mpd.socket"
+BackLight = "/sys/class/backlight/backlight/brightness"
+Battery   = "/sys/class/power_supply/axp20x-usb/uevent"
+AudioControl = "Power Amplifier"
 
 UPDATE_URL="https://raw.githubusercontent.com/clockworkpi/CPI/master/launcher_ver.json"
 
-VERSION="stable 1.24"
+VERSION="pocket 1.24"
 
 SKIN="../skin/pocket"
 
