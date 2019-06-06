@@ -70,11 +70,7 @@ Other than that, you can follow the instructions from the Gameshell wiki for lau
 
 ## Known problems and missing features
 
-- Wifi GUI is a bit buggy so I've disabled it in the Settings menu.
-- Battery display isn't hooked up yet, so I've disabled it for now
-- There are still some references to ClockworkPi/Gameshell here and there...
-- The brightness sometimes sets itself to the lowest value. For now, you can go to settings and turn the brightness back up yourself.
-- Not all new strings are localized yet.
+I've raised [issues](https://github.com/omgmog/launcher/issues) for everything I'm aware of. If you notice something else, please raise an issue!
 
 ## Help!
 
