@@ -114,9 +114,9 @@ check_running_root () {
 }
 do_install_deps () {
   sudo apt update
-  sudo apt install git libuser
-  sudo apt install python-wicd wicd wicd-curses python-pycurl python-alsaaudio python-pygame python-gobject python-xlib
-  sudo apt install python-pip
+  sudo apt install git libuser synaptic -y
+  sudo apt install python-wicd wicd wicd-curses python-pycurl python-alsaaudio python-pygame python-gobject python-xlib -y
+  sudo apt install python-pip -y
   sudo pip install validators numpy requests python-mpd2 beeprint
 
   chmod +x load.sh
