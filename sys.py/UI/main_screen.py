@@ -454,6 +454,9 @@ class MainScreen(Widget):
         
         files = os.listdir(_dir)
         for i in sorted(files):
+            # make sure icons directory doesn't get listed
+            if i == "icons":
+                break
             if os.path.isdir(_dir+"/"+i): # TOPLEVEL only is dir
                 if pglevel == 0:
                     page = Page()
