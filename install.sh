@@ -125,6 +125,10 @@ do_make_usergroup () {
   sudo groupadd cpifav -g 31415
   sudo adduser chip cpifav
 }
+do_add_sudoers () {
+  printf "chip ALL = (root) NOPASSWD: /sbin/reboot\nchip ALL = (root) NOPASSWD: /sbin/shutdown\n" | sudo tee /etc/sudoers.d/launcher
+  sudo chmod 0440 /etc/sudoers.d/launcher
+}
 do_remove_pockethome () {
   sudo apt -y remove pocket-home
 }
@@ -156,5 +160,6 @@ else
   do_install_deps
   do_make_usergroup
   do_remove_pockethome
+  do_add_sudoers
 fi
 do_complete
