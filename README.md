@@ -74,28 +74,4 @@ I've raised [issues](https://github.com/omgmog/launcher/issues) for everything I
 
 ## Help!
 
-Having problems with anything? Check these common problems below, or raise an issue:
-
-#### Shutdown and Restart in the _PowerOFF_ menu don't do anything!
-
-You need to make your user account (`chip`) passwordlessly use `sudo` for `shutdown` and `rebout`.
-
-First, open `visudo` to edit the `sudoers` file
-
-```
-sudo visudo
-``` 
-
-Then add the following lines at the end of the file:
-
-```
-chip ALL = (root) NOPASSWD: /sbin/reboot
-chip ALL = (root) NOPASSWD: /sbin/shutdown
-
-# You can do this for any command, or make your sudo entirely
-# passwordless... I wouldn't recommend that though...
-```
-
-Save and close `visudo` (this should use `nano` by default on the CHIP, so it's `ctrl`+`x` followed by `y` to save/close)
-
-Now you should be able to Shutdown and Restart from the _PowerOFF_ menu.
+Having problems with anything? Check these common problems below, or raise an [issue](https://github.com/omgmog/launcher/issues/new)
