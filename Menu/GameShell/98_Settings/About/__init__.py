@@ -221,6 +221,14 @@ class AboutPage(Page):
         self._AList["portinfo2"] = portinfo
 
 
+    def ThanksTimTam(self):
+        thanks = {}
+        thanks["key"] = "thankstimtam"
+        thanks["label"] = "PocketCHIP Graphic created by TimTam"
+        thanks["value"] = ""
+        self._AList["thankstimtam"] = thanks
+
+
         
 
     def GenList(self):
@@ -231,7 +239,7 @@ class AboutPage(Page):
         start_y  = 10
         last_height = 0
 
-        for i,u in enumerate( ["processor","armcores","cpuscalemhz","memory","uname","portinfo1","portinfo2"] ):
+        for i,u in enumerate( ["processor","armcores","cpuscalemhz","memory","uname","portinfo1","portinfo2","thankstimtam"] ):
         #for i,u in enumerate( ["processor","cpucores","cpumhz","flags","memory","uname"] ):
             if u not in self._AList:
                 continue
@@ -287,6 +295,7 @@ class AboutPage(Page):
         self.Uname()
         self.PortInfo1()
         self.PortInfo2()
+        self.ThanksTimTam()
         
         self.GenList()
 
