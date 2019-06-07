@@ -577,7 +577,9 @@ class MainScreen(Widget):
                     iconitem._CmdPath = os.path.realpath(_dir+"/"+i)
                     MakeExecutable(iconitem._CmdPath)
                     iconitem._MyType  = ICON_TYPES["EXE"]
-                    if FileExists( MySkinManager.GiveIcon( _dir+"/"+ReplaceSuffix(i2,"png"))):
+                    if FileExists(ReplaceSuffix(_dir+"/icons/"+i2,"png")):
+                        iconitem._ImageName = ReplaceSuffix(_dir+"/icons/"+i2,"png")
+                    elif FileExists( MySkinManager.GiveIcon( _dir+"/"+ReplaceSuffix(i2,"png"))):
                         iconitem._ImageName = MySkinManager.GiveIcon(_dir+"/"+ReplaceSuffix(i2,"png"))
                     else:
                         untitled = UntitledIcon()
