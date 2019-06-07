@@ -84,8 +84,8 @@ class AboutPage(Page):
 
     _Scrolled = 0
     
-    _BGwidth = 320
-    _BGheight = 300
+    _BGwidth = 480
+    _BGheight = 272
 
     _DrawOnce = False
     _Scroller = None
@@ -206,7 +206,23 @@ class AboutPage(Page):
                     memory["value"] = str( int(parts[1].strip())/1000.0) +" MB"
                     self._AList["memory"] = memory                    
                     break
+
+    def PortInfo1(self):
+        portinfo = {}
+        portinfo["key"] = "portinfo1"
+        portinfo["label"] = "Originally created for ClockworkPi Gameshell."
+        portinfo["value"] = ""
+        self._AList["portinfo1"] = portinfo
+    def PortInfo2(self):
+        portinfo = {}
+        portinfo["key"] = "portinfo2"
+        portinfo["label"] = "Ported to Pocket CHIP by omgmog."
+        portinfo["value"] = ""
+        self._AList["portinfo2"] = portinfo
+
+
         
+
     def GenList(self):
         
         self._MyList = []
@@ -215,7 +231,7 @@ class AboutPage(Page):
         start_y  = 10
         last_height = 0
 
-        for i,u in enumerate( ["processor","armcores","cpuscalemhz","features","memory","uname"] ):
+        for i,u in enumerate( ["processor","armcores","cpuscalemhz","memory","uname","portinfo1","portinfo2"] ):
         #for i,u in enumerate( ["processor","cpucores","cpumhz","flags","memory","uname"] ):
             if u not in self._AList:
                 continue
@@ -233,11 +249,15 @@ class AboutPage(Page):
             if self._AList[u]["label"] != "":
                 li.Init(  self._AList[u]["label"] )
             else:
-                li.Init( self._AList[u]["key"] )
+                # li.Init( self._AList[u]["key"] )
+                li.Init("")
 
             li._Flag = self._AList[u]["key"]
 
-            li.SetSmallText( self._AList[u]["value"] )
+            if self._AList[u]["value"] != "":
+                li.SetSmallText( self._AList[u]["value"] )
+            else:
+                li.SetSmallText("")
             
             last_height += li._Height
             
@@ -265,6 +285,8 @@ class AboutPage(Page):
         self.MemInfo()
         self.CpuMhz()
         self.Uname()
+        self.PortInfo1()
+        self.PortInfo2()
         
         self.GenList()
 
@@ -303,15 +325,17 @@ class AboutPage(Page):
             self.ReturnToUpLevelPage()
             self._Screen.Draw()
             self._Screen.SwapAndShow()
-        
-        if event.key == CurKeys["Up"]:
-            self.ScrollUp()
-            self._Screen.Draw()
-            self._Screen.SwapAndShow()
-        if event.key == CurKeys["Down"]:
-            self.ScrollDown()
-            self._Screen.Draw()
-            self._Screen.SwapAndShow()
+
+        # We don't need this page to be scrolly   
+
+        # if event.key == CurKeys["Up"]:
+        #     self.ScrollUp()
+        #     self._Screen.Draw()
+        #     self._Screen.SwapAndShow()
+        # if event.key == CurKeys["Down"]:
+        #     self.ScrollDown()
+        #     self._Screen.Draw()
+        #     self._Screen.SwapAndShow()
         
                                 
     def Draw(self):
@@ -329,12 +353,12 @@ class AboutPage(Page):
             self._DrawOnce = True
             
         if self._HWND != None:
-            self._HWND.fill((255,255,255))
+            # self._HWND.fill((255,255,255))
             
             self._HWND.blit(self._CanvasHWND,(self._PosX,self._PosY,self._Width, self._Height ) )
             
-            self._Scroller.UpdateSize(self._BGheight,abs(self._Scrolled)*3)
-            self._Scroller.Draw()
+            # self._Scroller.UpdateSize(self._BGheight,abs(self._Scrolled)*3)
+            # self._Scroller.Draw()
         
         
 
