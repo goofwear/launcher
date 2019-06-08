@@ -44,7 +44,7 @@ The usual `ctrl`+`tab` and `ctrl`+`q` shortcuts from `pocket-home` will work eve
 
 ## Adding new shortcuts
 
-To add a new shortcut, create a `.sh` file in the `~/launcher/Menu/GameShell` directory (you can copy one of the others).
+To add a new shortcut, create a `.sh` file in the `~/launcher/Menu/GameShell` directory (you can copy one of the others) or `~/apps/Menu` directory.
 
 The filename indicates the order, and must start with a number and underscore:
 
@@ -63,10 +63,12 @@ If you don't have an icon, the launcher will use the first letters of the shortc
 If you have problems with applications not using the whole screen, or failing to start, you can try specifying the display at the start of your command, e.g.:
 
 ```
-DISPLAY=":0" leafpad
+DISPLAY=:0 leafpad
 ```
 
 Other than that, you can follow the instructions from the Gameshell wiki for launching games in emulators directly, if you have `retroarch` installed on your PocketCHIP: https://github.com/clockworkpi/GameShellDocs/wiki/New-ICONS-that-start-games-in-one-click-from-the-MENU
+
+Or you can grab any of the game launchers that have bene collected here: https://github.com/omgmog/launcher-community-apps
 
 ## Known problems and missing features
 
