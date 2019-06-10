@@ -470,9 +470,7 @@ class MainScreen(Widget):
                     iconitem._FileName = i
                     iconitem._CmdPath = ""
                     iconitem.AddLabel(MyLangManager.Tr(i2),self._IconFont)
-                    if FileExists( _dir+"/"+i+"/"+i2+".png"): ### 20_Prog/Prog.png , cut 20_ 
-                        iconitem._ImageName = _dir+"/"+i+"/"+i2+".png"
-                    elif FileExists( MySkinManager.GiveIcon(_dir+"/"+i2+".png") ):
+                    if FileExists( MySkinManager.GiveIcon(_dir+"/"+i2+".png") ):
                         iconitem._ImageName = MySkinManager.GiveIcon(_dir+"/"+i2+".png")
                     else:
                         untitled = UntitledIcon()
@@ -567,6 +565,15 @@ class MainScreen(Widget):
                         iconitem._MyType  = ICON_TYPES["DIR"]
                         iconitem._LinkPage = Page()
                         iconitem._LinkPage._Name = i2
+
+                        # If folder has a custom icon with it, use it...
+                        if FileExists( _dir+"/"+i+"/icons/"+i2+".png"):
+                            iconitem._ImageName = _dir+"/"+i+"/icons/"+i2+".png"
+                            iconitem._ImgSurf = None
+                        # Or if there is a default icon specified in the theme, use it...
+                        elif FileExists(MySkinManager.GiveIcon("gameshell/folder.png") ):
+                            iconitem._ImageName = MySkinManager.GiveIcon("gameshell/folder.png")
+                            iconitem._ImgSurf = None
                         cur_page._Icons.append(iconitem)
                         self.ReadTheDirIntoPages(_dir+"/"+i,pglevel+1,iconitem._LinkPage)
                         
