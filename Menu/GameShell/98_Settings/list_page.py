@@ -53,7 +53,7 @@ class ListPage(Page):
         #                ""   pkgname, label
         alist         = [
                          # ["","Airplane","Airplane Mode"],                     # haven't looked at this yet
-                         # ["","PowerOptions","Power Options"],                 # haven't looked at this yet
+                         ["","PowerOptions","Power Options"],                 # haven't looked at this yet
                          # ["","Wifi","Wi-Fi"],                                 # currently lists networks, but doesn't know we're connected
                          ["","Bluetooth","Bluetooth"],                          # haven't looked at this much yet, but it lists devices
                          ["","Sound","Sound Volume"],

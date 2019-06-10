@@ -297,8 +297,8 @@ class PowerOptionsPage(Page):
 
     _Scrolled = 0
     
-    _BGwidth = 320
-    _BGheight = 240-24-20
+    _BGwidth = 480
+    _BGheight = 272-24-20
 
     _DrawOnce = False
     _Scroller = None
