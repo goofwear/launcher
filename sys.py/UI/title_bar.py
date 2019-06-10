@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*- 
-
 import pygame
 import os
 import sys
@@ -20,14 +19,15 @@ from lang_manager import MyLangManager
 from util_funcs  import midRect,SwapAndShow
 from skin_manager import MySkinManager
 from widget      import Widget
-from config import Battery
 from config import AudioControl
+from battery import BatteryAbstraction
 
 from libs.roundrects import aa_round_rect
 
 from libs.DBUS        import is_wifi_connected_now,wifi_strength
 
 icon_base_path = MySkinManager.GiveIcon("gameshell/titlebar_icons/")
+
 class TitleBar(Widget):
     _Width     = Width
     _Height    = 25
@@ -54,7 +54,7 @@ class TitleBar(Widget):
 
     def GObjectRoundRobin(self):
         if self._InLowBackLight < 0:
-            #self.CheckBatteryStat()
+            self.CheckBatteryStat()
             self.SyncSoundVolume()
             self.CheckBluetooth()
             self.UpdateWifiStrength()
@@ -64,7 +64,7 @@ class TitleBar(Widget):
         elif self._InLowBackLight >= 0:
             self._InLowBackLight+=1
             if self._InLowBackLight > 10:
-                #self.CheckBatteryStat()
+                self.CheckBatteryStat()
                 self.SyncSoundVolume()
                 self.CheckBluetooth()
                 self.UpdateWifiStrength()
@@ -115,63 +115,35 @@ class TitleBar(Widget):
 
         self._Icons["soundvolume"]._IconIndex = ge
         self._Icons["sound"]       = self._Icons["soundvolume"]
-
-        
+  
     def SetSoundVolume(self,vol):
         pass
     
     def CheckBatteryStat(self): ## 100ms check interval
-        content = ""
-        bat_uevent = {}
         bat_segs=[ [0,6],[7,15],[16,20], [21,30],[31,50],[51,60],  [61,80],[81,90],[91,100] ]
-        
-        try:
-            f = open(Battery)
-        except IOError:
-            self._Icons["battery"] = self._Icons["battery_unknown"]
-#            print("CheckBatteryStat open failed")
-            return False
+
+        # cur_cap = BatteryAbstraction.MaxVoltage()
+        # if not BatteryAbstraction.IsCharging():
+        cur_cap = BatteryAbstraction.AsPercentage()
+        cap_ge = 0
+
+        # Basically picks an icon frame index based on the bat_segs (9 frames)
+        for i,v in enumerate(bat_segs):
+            if cur_cap >= v[0] and cur_cap <= v[1]:
+                cap_ge = i
+                break
+
+        self._Icons["battery"] = self._Icons["battery_unknown"]
+
+        if BatteryAbstraction.IsCharging():
+            self._Icons["battery_charging"]._IconIndex = cap_ge
+            self._Icons["battery"] = self._Icons["battery_charging"]
+            print("Charging %d" % cap_ge)
+
         else:
-            with f:
-                content = f.readlines()
-                content = [x.strip() for x in content]
-                f.close()
-                
-                for i in content:
-                    pis = i.split("=")
-                    if len(pis) > 1:
-                        bat_uevent[pis[0]] = pis[1]
-
-                #        print(bat_uevent["POWER_SUPPLY_CAPACITY"])
-
-                """
-                power_current = int(bat_uevent["POWER_SUPPLY_CURRENT_NOW"])
-#                if power_current < 270000:
-                self._Icons["battery"] = self._Icons["battery_unknown"]
-                return False
-                """
-
-                if "POWER_SUPPLY_CAPACITY" in bat_uevent:
-                    cur_cap = int(bat_uevent["POWER_SUPPLY_CAPACITY"])
-                else:
-                    cur_cap = 0
-                    
-                cap_ge = 0
-                
-                for i,v in enumerate(bat_segs):
-                    if cur_cap >= v[0] and cur_cap <= v[1]:
-                        cap_ge = i
-                        break
-        
-                if bat_uevent["POWER_SUPPLY_STATUS"] == "Charging":
-                    self._Icons["battery_charging"]._IconIndex = cap_ge
-                    self._Icons["battery"] = self._Icons["battery_charging"]
-            
-                    print("Charging %d" % cap_ge)
-                else:
-                    self._Icons["battery_discharging"]._IconIndex = cap_ge
-                    self._Icons["battery"] = self._Icons["battery_discharging"]
-                    print("Discharging %d" % cap_ge)
+            self._Icons["battery_discharging"]._IconIndex = cap_ge
+            self._Icons["battery"] = self._Icons["battery_discharging"]
+            print("Discharging %d" % cap_ge)
                     
                 
         return True
@@ -232,7 +204,7 @@ class TitleBar(Widget):
 
         self._Icons["battery_unknown"] = battery_unknown
                         
-        #self.CheckBatteryStat()
+        self.CheckBatteryStat()
 
         sound_volume   =  MultiIconItem()
         sound_volume._MyType = ICON_TYPES["STAT"]
@@ -336,6 +308,27 @@ class TitleBar(Widget):
             )
         )
 
+
+        #### Debug: Output the battery value as text...
+        # cur_batt =  "Batt: %s, %s" % (str(BatteryAbstraction.AsPercentage()), str(BatteryAbstraction.IsCharging()))
+        # batt_text_font = MySkinManager.GiveFont("varela12")
+        # batt_text_size = batt_text_font.size(cur_batt)
+        # self._CanvasHWND.blit(batt_text_font.render(
+        #     cur_batt,
+        #     True,
+        #     self._SkinManager.GiveColor("Text")),
+        #     # x,y,width,height,canWidth,canHeight
+        #     midRect(
+        #         # Width-batt_text_size[0]/2-self._ROffset,
+        #         200,
+        #         batt_text_size[1]/2+(self._BarHeight-batt_text_size[1])/2,
+        #         batt_text_size[0],
+        #         batt_text_size[1],
+        #         Width,
+        #         Height
+        #     )
+        # )
+
         start_x = Width-time_text_size[0]-self._ROffset-self._icon_width*3 # near by the time_text
         
         self._Icons["bluetooth"].NewCoord(start_x - self._icon_width,self._icon_height/2+(self._BarHeight-self._icon_height)/2)
@@ -344,7 +337,7 @@ class TitleBar(Widget):
         
         #self._Icons["wifi"].NewCoord(start_x+self._icon_width+5,    self._icon_height/2+(self._BarHeight-self._icon_height)/2)
         
-        #self._Icons["battery"].NewCoord(start_x+self._icon_width+self._icon_width+8,self._icon_height/2+(self._BarHeight-self._icon_height)/2)
+        self._Icons["battery"].NewCoord(start_x+self._icon_width+self._icon_width+8,self._icon_height/2+(self._BarHeight-self._icon_height)/2)
 
         
         if is_wifi_connected_now():
@@ -369,7 +362,7 @@ class TitleBar(Widget):
         # Draw the title bar icons
         self._Icons["wifistatus"].Draw()
         self._Icons["sound"].Draw()
-        # self._Icons["battery"].Draw()
+        self._Icons["battery"].Draw()
         # self._Icons["bluetooth"].Draw()
         
         pygame.draw.line(self._CanvasHWND,self._SkinManager.GiveColor("Line"),(0,self._BarHeight),(self._Width,self._BarHeight),self._BorderWidth)

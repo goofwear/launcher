@@ -5,8 +5,12 @@ CurKeySet = "PC" ## >>>    PC or GameShell   <<<
 DontLeave = False
 
 BackLight = "/sys/class/backlight/backlight/brightness"
-Battery   = "/sys/class/power_supply/axp20x-usb/uevent"
 AudioControl = "Power Amplifier"
+
+# We don't use a real device here, just two files: voltage and charging
+Battery   =  {}
+Battery["charging"] = "/usr/lib/pocketchip-batt/charging"
+Battery["voltage"] = "/usr/lib/pocketchip-batt/voltage"
 
 UPDATE_URL="https://raw.githubusercontent.com/clockworkpi/CPI/master/launcher_ver.json"
 
