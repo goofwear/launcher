@@ -151,7 +151,7 @@ client.add_signal("unfocus", function (c)
 end)
 
 client.add_signal("manage", function (c, startup)
-  if c.name == "run.py" then
+  if c.name == "Launcher" then
     home_screen.client = c
   elseif c.class == "ahoy" then
     onboard.client = c
@@ -166,7 +166,7 @@ client.add_signal("manage", function (c, startup)
   end
 end)
 client.add_signal("unmanage", function (c)
-  if c.name == "run.py" then
+  if c.name == "Launcher" then
     home_screen = {}
   elseif c.class == "ahoy" then
     onboard = {}

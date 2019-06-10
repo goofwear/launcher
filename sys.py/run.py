@@ -53,6 +53,7 @@ import config
 
 if not pygame.display.get_init():
     pygame.display.init()
+    pygame.display.set_caption("Launcher")
 if not pygame.font.get_init():
     pygame.font.init()
 
