@@ -61,7 +61,6 @@ class ListPage(Page):
                          ["","Storage",""],                                     # reports 6.6gb of total storage? I thought CHIP was 4gb
                          # ["","Time","Timezone"],                              # lists timezones, but hangs on selection
                          ["","Languages","Languages"],                          # works, but haven't localized new stuff yet
-                         # ["","Notification","Notification"],
                          # ["","Update", ""],                                   # not needed, we can update manually for now
                          ["","About",  "About"],
                          # ["","PowerOFF","Power OFF"],
