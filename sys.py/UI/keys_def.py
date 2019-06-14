@@ -28,15 +28,15 @@ def SetButtonsLayoutMode(mode):
 
 def SetXYABButtons(mode):
     if mode == "snes":
-        GameShell["Y"] = pygame.K_9
-        GameShell["X"] = pygame.K_MINUS
-        GameShell["B"] = pygame.K_0
-        GameShell["A"] = pygame.K_EQUALS
-    else:
+        GameShell["Y"] = pygame.K_7
         GameShell["X"] = pygame.K_9
-        GameShell["Y"] = pygame.K_MINUS
+        GameShell["B"] = pygame.K_8
         GameShell["A"] = pygame.K_0
-        GameShell["B"] = pygame.K_EQUALS
+    else:
+        GameShell["X"] = pygame.K_7
+        GameShell["Y"] = pygame.K_9
+        GameShell["A"] = pygame.K_8
+        GameShell["B"] = pygame.K_0
 
 
 GameShell = {}
@@ -63,10 +63,10 @@ PC["Left"]  = pygame.K_LEFT
 PC["Right"] = pygame.K_RIGHT
 PC["Menu"]  = pygame.K_ESCAPE
 
-PC["X"]     = pygame.K_9
-PC["Y"]     = pygame.K_MINUS
-PC["A"]     = pygame.K_0
-PC["B"]     = pygame.K_EQUALS
+PC["X"]     = pygame.K_7
+PC["Y"]     = pygame.K_9
+PC["A"]     = pygame.K_8
+PC["B"]     = pygame.K_0
 PC["Select"] = pygame.K_RSHIFT
 PC["Start"] = pygame.K_RETURN
 
