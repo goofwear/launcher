@@ -2,9 +2,9 @@
 from config import Battery
 
 class BatteryAbstraction:
-    VoltageNow = 0
     VoltageMax = 4250    
-    Charging = 0
+    VoltageNow = 0
+    Charging = 1
 
     @classmethod
     def readV(self):
@@ -14,7 +14,11 @@ class BatteryAbstraction:
             print("Couldn't read voltage!")
         else:
             with f:
-                self.VoltageNow = int(f.read())
+                val = f.read().strip()
+                # If the read returns nothing, get the max value
+                if val == "":
+                    val = self.VoltageMax
+                self.VoltageNow = int(val)
 
     @classmethod
     def readC(self):
@@ -22,9 +26,14 @@ class BatteryAbstraction:
             f = open(Battery["charging"])
         except IOError:
             print("Couldn't read charge state!")
+            
         else:
             with f:
-                self.Charging = int(f.read()) == 1
+                val = f.read().strip()
+                # If the read returns nothing, get the previous value
+                if val == "":
+                    val = self.Charging
+                self.Charging = int(val) == 1
     @classmethod
     def CurrentVoltage(self):
         self.readV()
@@ -56,4 +65,6 @@ class BatteryAbstraction:
 
 
 if __name__ == '__main__':
-    BatteryAbstraction.test()
+    # If called stand-alone, return the current charge percentage
+    BatteryAbstraction.readV()
+    print ("%s" % BatteryAbstraction.AsPercentage()) 

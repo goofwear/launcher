@@ -63,7 +63,7 @@ class ListPage(Page):
                          ["","Languages","Languages"],                          # works, but haven't localized new stuff yet
                          # ["","Update", ""],                                   # not needed, we can update manually for now
                          ["","About",  "About"],
-                         # ["","PowerOFF","Power OFF"],
+                         ["","PowerOFF","Power OFF"],
                          # ["","ButtonsLayout","Buttons Layout"],               # not needed, this is just for switching between snes/xbox layouts
                          # ["","LauncherGo","Switch to LauncherGo"],            # not needed
                          # ["","Lima","GPU driver switch"],                     # not needed

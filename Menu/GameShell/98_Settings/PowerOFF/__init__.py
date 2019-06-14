@@ -8,35 +8,14 @@ from UI.keys_def     import CurKeys, IsKeyStartOrA, IsKeyMenuOrB
 from UI.confirm_page import ConfirmPage
 from UI.lang_manager import MyLangManager
 import config
+from battery import BatteryAbstraction
 
 class PowerOffConfirmPage(ConfirmPage):
     
     _ConfirmText = MyLangManager.Tr("Confirm Power OFF?")
     
     def CheckBattery(self):
-        try:
-            f = open(config.Battery)
-        except IOError:
-            print( "PowerOFF open %s failed" % config.Battery)
-            return 0
-        else:
-            with f:
-                bat_uevent = {}
-                content = f.readlines()
-                content = [x.strip() for x in content]
-                for i in content:
-                    pis = i.split("=")
-                    if len(pis) > 1:
-                        bat_uevent[pis[0]] = pis[1]
-
-                if "POWER_SUPPLY_CAPACITY" in bat_uevent:
-                    cur_cap = int(bat_uevent["POWER_SUPPLY_CAPACITY"])
-                else:
-                    cur_cap = 0
-                
-                return cur_cap
-                    
-        return 0
+        return BatteryAbstraction.AsPercentage()
         
     def KeyDown(self,event):
         
