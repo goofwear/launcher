@@ -30,11 +30,13 @@ bash ./install.sh -u
 
 The button layout is as follows:
 
-- A/OK - `0`
-- B/Back - `=`
-- X - `9`
-- Y - `-`
+- A/OK - `8`
+- B/Back - `0`
+- X - `7`
+- Y - `9`
 - D-pad - d-pad
+
+- Volume control: `Ctrl` + `-` or `+`, Then `0` (back) to close/confirm
 
 This should be the most consistent with what you're used to on PocketCHIP, while also providing the additional buttons that the launcher uses.
 
