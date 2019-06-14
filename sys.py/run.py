@@ -325,6 +325,7 @@ def release_self_fds():
 def event_process(event,main_screen):
     global sound_patch
     global everytime_keydown 
+    all_keys = pygame.key.get_pressed()
     if event != None:
         pygame.event.clear()
         if event.type == pygame.ACTIVEEVENT:
@@ -412,7 +413,7 @@ def event_process(event,main_screen):
                 gobject_main_loop.quit()
                 exit()
 
-            if event.key == pygame.K_KP_PLUS:
+            if event.key == pygame.K_EQUALS and all_keys[pygame.K_RCTRL]:
                 if main_screen._CurrentPage._Name != "Sound volume": ## name from Menu/GameShell/10_Settings/Sound/pages.py
                     main_screen.Draw()
                     sound_patch.VolumeUp()
@@ -423,7 +424,7 @@ def event_process(event,main_screen):
                     #main_screen.Draw()
                     #main_screen.SwapAndShow()
                 
-            if event.key == pygame.K_KP_MINUS:
+            if event.key == pygame.K_KP_MINUS and all_keys[pygame.K_RCTRL]:
                 if main_screen._CurrentPage._Name != "Sound volume":
                     main_screen.Draw()
                     

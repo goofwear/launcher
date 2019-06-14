@@ -19,6 +19,7 @@ from label       import Label
 from skin_manager import MySkinManager
 from lang_manager import MyLangManager
 from widget      import Widget
+from config import AudioControl
 
 
 class AboveAllPatch(Widget):
@@ -76,7 +77,7 @@ class SoundPatch(AboveAllPatch):
         self.SetCanvasHWND(self._Parent._CanvasHWND)
         
     def VolumeUp(self):
-        m = alsaaudio.Mixer()
+        m = alsaaudio.Mixer(AudioControl)
         vol = m.getvolume()[0]
 
  #       print("VolumeUp vol %d " % vol)
@@ -99,7 +100,7 @@ class SoundPatch(AboveAllPatch):
         return self._Value
         
     def VolumeDown(self):
-        m = alsaaudio.Mixer()
+        m = alsaaudio.Mixer(AudioControl)
         vol = m.getvolume()[0]
 
         for i,v in enumerate(self.snd_segs):
@@ -128,7 +129,8 @@ class SoundPatch(AboveAllPatch):
         # h = 40
         for i in range(0,self._Needle+1):
             #w = 10,h = 40
-            vol_rect = pygame.Rect(80+i*20, self._Height/2+20,10, 40)
+            vol_rect = pygame.Rect(160+i*20, self._Height/2+20,10, 40)
             
-            aa_round_rect(self._CanvasHWND,vol_rect,MySkinManager.GiveColor("Front"),3,0,MySkinManager.GiveColor("Front"))
+            # Using "Text" color which in the Pocket theme is white
+            aa_round_rect(self._CanvasHWND,vol_rect,MySkinManager.GiveColor("Text"),4,0,MySkinManager.GiveColor("Text"))
     
