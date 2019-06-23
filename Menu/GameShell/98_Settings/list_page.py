@@ -65,8 +65,6 @@ class ListPage(Page):
                          ["","About",  "About"],
                          ["","PowerOFF","Power OFF"],
                          # ["","ButtonsLayout","Buttons Layout"],               # not needed, this is just for switching between snes/xbox layouts
-                         # ["","LauncherGo","Switch to LauncherGo"],            # not needed
-                         # ["","Lima","GPU driver switch"],                     # not needed
                          # ["","GateWay","Network gateway switch"]              # haven't looked at this yet
                         ]
 
