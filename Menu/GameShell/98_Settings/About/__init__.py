@@ -21,6 +21,8 @@ from UI.multilabel import MultiLabel
 from UI.lang_manager import MyLangManager
 from UI.skin_manager import MySkinManager
 
+from battery import BatteryAbstraction
+
 class InfoPageListItem(object):
     _PosX = 0
     _PosY = 0
@@ -206,6 +208,24 @@ class AboutPage(Page):
                     memory["value"] = str( int(parts[1].strip())/1000.0) +" MB"
                     self._AList["memory"] = memory                    
                     break
+    def BatteryInfo(self):
+        batteryinfo = {}
+        batteryinfo["key"] = "batteryinfo"
+        batteryinfo["label"] = "Battery:"
+        charging_string = "Discharging"
+        if BatteryAbstraction.IsCharging():
+            charging_string = "Charging"
+
+        batteryinfo["value"] = "{}/{} mAh, {}%, {}".format(
+            BatteryAbstraction.CurrentVoltage(),
+            BatteryAbstraction.MaxVoltage(),
+            BatteryAbstraction.AsPercentage(),
+            charging_string
+        )
+        self._AList["batteryinfo"] = batteryinfo
+
+
+
 
     def PortInfo1(self):
         portinfo = {}
@@ -213,6 +233,7 @@ class AboutPage(Page):
         portinfo["label"] = "Originally created for ClockworkPi Gameshell."
         portinfo["value"] = ""
         self._AList["portinfo1"] = portinfo
+
     def PortInfo2(self):
         portinfo = {}
         portinfo["key"] = "portinfo2"
@@ -239,8 +260,7 @@ class AboutPage(Page):
         start_y  = 10
         last_height = 0
 
-        for i,u in enumerate( ["processor","armcores","cpuscalemhz","memory","uname","portinfo1","portinfo2","thankstimtam"] ):
-        #for i,u in enumerate( ["processor","cpucores","cpumhz","flags","memory","uname"] ):
+        for i,u in enumerate( ["cpuscalemhz","memory","uname", "batteryinfo", "portinfo1","portinfo2","thankstimtam"] ):
             if u not in self._AList:
                 continue
             
@@ -293,6 +313,7 @@ class AboutPage(Page):
         self.MemInfo()
         self.CpuMhz()
         self.Uname()
+        self.BatteryInfo()
         self.PortInfo1()
         self.PortInfo2()
         self.ThanksTimTam()
