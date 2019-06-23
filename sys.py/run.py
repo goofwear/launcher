@@ -282,10 +282,8 @@ def RecordKeyDns(thekey,main_screen):
     else:
         Keys = []
         Keys.append(thekey)
-    
     keys = ''.join(map(str,Keys))
-    #print(keys)
-    if keys == "273273274274276276275275106107":##uuddllrrab
+    if keys == "2732732742742762762752754848": #uuddllrrbb
         crt_screen.Draw()
         crt_screen.SwapAndShow()
         main_screen._TitleBar._InLowBackLight = 0 ##pause titlebar drawing
