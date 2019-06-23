@@ -594,12 +594,12 @@ def PreparationInAdv():
     powerlevel = powerlevel.strip()
     if powerlevel != "":
         config.PowerLevel = powerlevel
-        if powerlevel != "supersaving":
-            os.system("sudo iw wlan0 set power_save off >/dev/null")
-        else:
-            os.system("sudo iw wlan0 set power_save on > /dev/null")
-    else:
-        os.system("sudo iw wlan0 set power_save off >/dev/null")
+    #     if powerlevel != "supersaving":
+    #         os.system("sudo iw wlan0 set power_save off >/dev/null")
+    #     else:
+    #         os.system("sudo iw wlan0 set power_save on > /dev/null")
+    # else:
+    #     os.system("sudo iw wlan0 set power_save off >/dev/null")
         
 ###MAIN()###
 if __name__ == '__main__':

@@ -126,7 +126,7 @@ do_make_usergroup () {
   sudo adduser chip cpifav
 }
 do_add_sudoers () {
-  printf "chip ALL = (root) NOPASSWD: /sbin/reboot\nchip ALL = (root) NOPASSWD: /sbin/shutdown\n" | sudo tee /etc/sudoers.d/launcher
+  printf "chip ALL = (root) NOPASSWD: /sbin/reboot\nchip ALL = (root) NOPASSWD: /sbin/shutdown\nchip ALL = (root) NOPASSWD: /usr/sbin/rfkill\n" | sudo tee /etc/sudoers.d/launcher
   sudo chmod 0440 /etc/sudoers.d/launcher
 }
 do_remove_pockethome () {
