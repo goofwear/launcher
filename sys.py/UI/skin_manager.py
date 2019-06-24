@@ -84,6 +84,11 @@ class SkinManager(object):
         Colors["White"] = pygame.Color(255, 255, 255)
         Colors["Black"] = pygame.Color(0, 0, 0)
 
+
+        Colors["UI_Base"] = pygame.Color(255,255,255)
+        Colors["UI_Background"] = pygame.Color(100, 100, 100)
+        Colors["UI_Foreground"] = pygame.Color(0, 0, 0)
+
         SkinManager._Colors = Colors
 
         self._Config = CaseConfigParser()

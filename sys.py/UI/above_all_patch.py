@@ -80,57 +80,88 @@ class SoundPatch(AboveAllPatch):
         m = alsaaudio.Mixer(AudioControl)
         vol = m.getvolume()[0]
 
- #       print("VolumeUp vol %d " % vol)
+        # Get current volume level
         for i,v in enumerate(self.snd_segs):
             if  vol >= v[0] and vol <= v[1]:
                 self._Needle = i
                 break
           
+        # Increment volume
         self._Needle += 1
-        
         if self._Needle > len(self.snd_segs) -1:
             self._Needle = len(self.snd_segs) -1
 
-#        print("Set volume %d" % self.snd_segs[self._Needle][1] )
-        m.setvolume( self.snd_segs[self._Needle][0] +  (self.snd_segs[self._Needle][1] - self.snd_segs[self._Needle][0])/2   ) ## prefer bigger one  
+        # Get upper of two segments
+        vol = self.snd_segs[self._Needle][0] +  (self.snd_segs[self._Needle][1] - self.snd_segs[self._Needle][0])/2
 
-        self._Value = self.snd_segs[self._Needle][1]
+        m.setvolume(vol)
 
-#        print( self._Value)
+        self._Value = vol
         return self._Value
         
     def VolumeDown(self):
         m = alsaaudio.Mixer(AudioControl)
         vol = m.getvolume()[0]
 
+        # Get current volume level
         for i,v in enumerate(self.snd_segs):
             if  vol >= v[0] and vol <= v[1]:
                 self._Needle = i
                 break
 
+        # Decrement volume
         self._Needle -= 1
         if self._Needle < 0:
             self._Needle = 0
         
-        vol =  self.snd_segs[self._Needle][0] ## prefer smaller one
+        # Get lower of two segments
+        vol =  self.snd_segs[self._Needle][0]
         
         if vol < 0:
             vol = 0
         m.setvolume(vol)
 
-#        print(vol)
-
         self._Value = vol
-        return vol
+        return self._Value
 
 
     def Draw(self):
-        # 200 total width
-        # h = 40
+        _contWidth = 280
+        _contHeight = 40
+        _contRadius = 4
+        _segWidth = 20
+        _segHeight = 20
+        _segSpace = 10
+
+        _contX = (Width - _contWidth) / 2
+        _contY = Height - (_contHeight * 3) # Offset from bottom
+
+        # Draw the container 
+        container_rect = pygame.Rect(_contX, _contY, _contWidth, _contHeight)
+
+        aa_round_rect(
+            self._CanvasHWND,
+            container_rect,
+            MySkinManager.GiveColor("UI_Base"),
+            _contRadius
+        )
+
+        # Draw the empty segments
+        for i in range(0, len(self.snd_segs)):
+            segment_rect = pygame.Rect(
+                _contX + _segSpace + (i * (_segWidth + _segSpace)),
+                _contY + _segSpace,
+                _segWidth,
+                _segHeight
+            )
+            self._CanvasHWND.fill(MySkinManager.GiveColor("UI_Background"), segment_rect)
+
+        # Draw the segments for the current volume
         for i in range(0,self._Needle+1):
-            #w = 10,h = 40
-            vol_rect = pygame.Rect(160+i*20, self._Height/2+20,10, 40)
-            
-            # Using "Text" color which in the Pocket theme is white
-            aa_round_rect(self._CanvasHWND,vol_rect,MySkinManager.GiveColor("Text"),4,0,MySkinManager.GiveColor("Text"))
-    
+            segment_rect = pygame.Rect(
+                _contX + _segSpace + (i * (_segWidth + _segSpace)),
+                _contY + _segSpace,
+                _segWidth,
+                _segHeight
+            )
+            self._CanvasHWND.fill(MySkinManager.GiveColor("UI_Foreground"), segment_rect)
