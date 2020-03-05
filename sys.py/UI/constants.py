@@ -15,8 +15,8 @@ from pygame.locals import *
 from skin_manager import MySkinManager
 
 
-Width = 480
-Height = 272
+Width = 1280
+Height = 720
 bg_color =  MySkinManager.GiveColor('White')
 
 icon_width  = 80
