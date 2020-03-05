@@ -119,7 +119,7 @@ do_install_deps () {
   sudo apt install python-pip -y
   sudo pip install validators numpy requests python-mpd2 beeprint
 
-  chmod +x load.sh
+  chmod +x ${HOME}/launcher/load.sh
 }
 do_make_usergroup () {
   sudo groupadd cpifav -g 31415
@@ -128,9 +128,6 @@ do_make_usergroup () {
 do_add_sudoers () {
   printf "chip ALL = (root) NOPASSWD: /sbin/reboot\nchip ALL = (root) NOPASSWD: /sbin/shutdown\nchip ALL = (root) NOPASSWD: /usr/sbin/rfkill\n" | sudo tee /etc/sudoers.d/launcher
   sudo chmod 0440 /etc/sudoers.d/launcher
-}
-do_remove_pockethome () {
-  sudo apt -y remove pocket-home
 }
 do_restart () {
   sudo reboot
@@ -159,7 +156,6 @@ else
   do_install_awesome
   do_install_deps
   do_make_usergroup
-  do_remove_pockethome
   do_add_sudoers
 fi
 do_complete
