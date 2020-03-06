@@ -517,7 +517,7 @@ def socket_thread(main_screen):
                     if main_screen._MyPageStack.Length() == 0: ## on Top Level 
                         break
                 
-                if main_screen._CurrentPage._Name == "PocketCHIP":
+                if main_screen._CurrentPage._Name == "Switch":
                     for i in main_screen._CurrentPage._Icons:
                         if i._MyType == ICON_TYPES["FUNC"]:
                             if i._Label.GetText() == "PowerOFF":

@@ -42,7 +42,7 @@ yesno() {
   e_yellow "${1} [Y/n]"
   local choice_made=0
   read user_choice
-  while [[ "${choice_made}" < 1 ]]; do
+  while [[ "${choice_made}" -lt 1 ]]; do
     case "$(echo ${user_choice} | tr '[:upper:]' '[:lower:]')" in
       "y" | "yes" | "")
         choice_made=1
@@ -134,7 +134,7 @@ do_restart () {
 }
 do_complete () {
   e_green "Installation complete!"
-  yesno "Do you want to restart your PocketCHIP now?" "Restarting" do_restart "Alright, but you need to restart to start using the new launcher" noop
+  yesno "Do you want to restart your Switch now?" "Restarting" do_restart "Alright, but you need to restart to start using the new launcher" noop
 }
 do_uninstall() {
   echo "Uninstall would be here"
