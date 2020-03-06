@@ -1,12 +1,8 @@
-# GameShell launcher for PocketCHIP
+# GameShell launcher for L4T (Switch)
 
-This is the Launcher from the Gameshell, ported over to the PocketCHIP.
+This is the Launcher from the Gameshell, ported over to Linux4Tegra for the Switch. Based on [omgmog's PocketCHIP port](https://github.com/omgmog/launcher) of the [clockworkpi launcher](https://github.com/clockworkpi/launcher).
 
 ![](https://media.discordapp.net/attachments/422472890441793539/585821529913425923/2019-06-05-132318_480x272_scrot.png)
-
-### Note
-
-This is has been tested on my own PocketCHIP to ensure repeatability a couple of times, but you might encounter your own probems if you don't have a working `apt` for example.
 
 ## Installation
 
@@ -74,8 +70,5 @@ Or you can grab any of the game launchers that have bene collected here: https:/
 
 ## Known problems and missing features
 
-I've raised [issues](https://github.com/omgmog/launcher/issues) for everything I'm aware of. If you notice something else, please raise an issue!
+Feel free to raise an [issue](https://github.com/ojdon/launcher/issues). However, keep in mind that I'm doing this for free, in my limited spare time. 
 
-## Help!
-
-Having problems with anything? Check these common problems below, or raise an [issue](https://github.com/omgmog/launcher/issues/new)
