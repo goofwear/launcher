@@ -1,1 +1,1 @@
-DISPLAY=":0" pcmanfm ~
+DISPLAY=":0" nautilus ~
