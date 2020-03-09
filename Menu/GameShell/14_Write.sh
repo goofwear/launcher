@@ -1,1 +1,1 @@
-DISPLAY=":0" leafpad
+DISPLAY=":0" gedit
