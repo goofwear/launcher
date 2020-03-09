@@ -8,7 +8,7 @@ This is the Launcher from the Gameshell, ported over to Linux4Tegra for the Swit
 
 ```
 cd ~
-git clone https://github.com/omgmog/launcher.git
+git clone https://github.com/ojdon/launcher.git
 cd launcher
 chmod +x install.sh
 bash ./install.sh
